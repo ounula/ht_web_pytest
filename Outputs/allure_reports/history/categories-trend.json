@@ -1,0 +1,72 @@
+[ {
+  "buildOrder" : 16,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/16/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 15,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/15/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 14,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/14/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 13,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/13/allure",
+  "reportName" : "AllureReport",
+  "data" : {
+    "Test defects" : 1
+  }
+}, {
+  "buildOrder" : 12,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/12/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 11,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/11/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 10,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/10/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 9,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/9/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 8,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/8/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 7,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/7/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 6,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/6/allure",
+  "reportName" : "AllureReport",
+  "data" : { }
+}, {
+  "buildOrder" : 5,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/5/allure",
+  "reportName" : "AllureReport",
+  "data" : {
+    "Test defects" : 1
+  }
+}, {
+  "buildOrder" : 3,
+  "reportUrl" : "http://192.168.60.220:23145/jenkins/job/ht_web_pytest/3/allure",
+  "reportName" : "AllureReport",
+  "data" : {
+    "Test defects" : 2
+  }
+} ]
