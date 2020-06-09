@@ -12,6 +12,6 @@ import pytest
 @pytest.mark.usefixtures("login_success")
 class TestIndexPage:
     def test_click_into_ptsd(self, login_success):
-        log.info("**********主页：正常场景   -   点击二级菜单<普通送达>进入对应页面**********")
+        log.info("**********主页：正常场景   -   点击二级菜单<送达任务>进入对应页面**********")
         IndexPage(login_success).click_ptsd()
         assert PtsdList(login_success).list_exist()

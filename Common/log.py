@@ -11,9 +11,9 @@ import time
 level = conf.get_str("logging", "level")
 f_level = conf.get_str("logging", "f_level")
 s_level = conf.get_str("logging", "s_level")
-filename = conf.get_str("logging", "filename")
+# filename = conf.get_str("logging", "filename")
 # 获取日志文件的绝对路径
-file_path = os.path.join(dir_config.logs_dir,filename)
+# file_path = os.path.join(dir_config.logs_dir,filename)
 
 
 class MyLogger(object):

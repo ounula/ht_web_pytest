@@ -226,9 +226,9 @@ class BasePage:
             # 结束等待的时间点
             end = time.time()
             # 求差值
+            self.driver.execute_script("arguments[0].scrollIntoView(false);", ele)
             wait_time = round(end - start, 3)
             log.info("滚动条处理成功，用时{}秒".format(wait_time))
-            self.driver.execute_script("arguments[0].scrollIntoView(false);", ele)
             time.sleep(1)
         except:
             log.error("滚动条处理失败，定位：{}".format(locator))
@@ -250,6 +250,7 @@ class BasePage:
     def count_downloadsFiles(self):
         return len(os.listdir(dir_config.downloads_dir))
 
+    #截图
     def save_screenshot(self, doc=""):
         # 图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
         filePath = dir_config.screenshot_dir + \

@@ -8,4 +8,4 @@ class IndexLocator:
     # 注销
     logOut = ("注销按钮", (By.XPATH, '//span[text()="注销"]'))
     # 普通送达菜单
-    ptsd = ("普通送达菜单按钮", (By.XPATH, '//li[contains(text(),"普通")]'))
+    ptsd = ("普通送达菜单按钮", (By.XPATH, '//li[contains(text(),"送达任务")]'))

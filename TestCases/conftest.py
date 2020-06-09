@@ -6,7 +6,7 @@ from selenium import webdriver
 from Common import dir_config
 from PageObjects.index_p import IndexPage
 from PageObjects.login_p import LoginPage
-import os
+from Common.config import conf
 from TestDatas import common_datas as CD
 from TestDatas import login_datas as LD
 
@@ -30,7 +30,8 @@ def access_web():
     # 前置操作
     driver = webdriver.Chrome()
     driver.maximize_window()
-    driver.get(CD.web_login_url)
+    url = conf.get_str('env','url')
+    driver.get(url=url)
     lg = LoginPage(driver)
     yield driver, lg  # 分割线；返回值
     # 后置操作
@@ -56,16 +57,18 @@ def login_success():
     global driver
     # 前置操作
     options = webdriver.ChromeOptions()
+    print(dir_config.downloads_dir)
     prefs = {
         "download.prompt_for_download": False,
         'download.default_directory': dir_config.downloads_dir,  # 下载目录
-        "plugins.always_open_pdf_externally": True,
         'profile.default_content_settings.popups': 0,  # 设置为0，禁止弹出窗口
+        'safebrowsing.enabled': True,
     }
     options.add_experimental_option('prefs', prefs)
     driver = webdriver.Chrome(options=options)
     driver.maximize_window()
-    driver.get(CD.web_login_url)
+    url = conf.get_str('env','url')
+    driver.get(url=url)
     LoginPage(driver).login(LD.success_data["用户名"], LD.success_data["密码"])
     yield driver
 
