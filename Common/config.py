@@ -1,80 +1,36 @@
 # -*- encoding:utf-8 -*-
-# @Time : 2020/5/13 12:15
+# @Time : 2020/4/13 13:55 
 # @Author : ZHH
-from configparser import ConfigParser
-from Common import dir_config
 import os
+from Common.get_conf import MyConf
 
+#框架项目顶层目录
+base_dir = os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]
 
-class MyConf:
+#测试数据
+testdatas_dir = os.path.join(base_dir,"TestDatas")
 
-    def __init__(self, filename, encoding="utf8"):
-        """
+#测试用例
+testcase_dir = os.path.join(base_dir,"TestCases")
 
-        :param filename: 配置文件名
-        :param encoding: 文件编码方式
-        """
-        self.filename = filename
-        self.encoding = encoding
-        # 创建一个文件解析对象，设为对象的conf
-        self.conf = ConfigParser()
-        # 使用解析器对象，加载配置文件中的内容
-        self.conf.read(filename, encoding)
+#配置文件
+conf_dir = os.path.join(base_dir,"Config")
 
-    def get_str(self, section, option):
-        """
-        读取数据
-        :param section: 配置块
-        :param option: 配置项
-        :return: 对应配置项的数据
-        """
-        return self.conf.get(section, option)
+#软电话目录
+MicroSip_dir =r'C:\Users\yiii\AppData\Local\MicroSIP\microsip.exe'
 
-    def get_int(self, section, option):
-        """
-        读取数据
-        :param section: 配置块
-        :param option: 配置项
-        :return: 对应配置项的数据
-        """
-        return self.conf.getint(section, option)
+#html报告
+htmlreport_dir = os.path.join(base_dir, "Outputs\\reports")
 
-    def get_float(self, section, option):
-        """
-        读取数据
-        :param section: 配置块
-        :param option: 配置项
-        :return: 对应配置项的数据
-        """
-        return self.conf.getfloat(section, option)
+#日志文件
+logs_dir = os.path.join(base_dir, "Outputs\\logs")
 
-    def get_bool(self, section, option):
-        """
-        读取数据
-        :param section: 配置块
-        :param option: 配置项
-        :return: 对应配置项的数据
-        """
-        return self.conf.getboolean(section, option)
+#截图
+screenshot_dir = os.path.join(base_dir, "Outputs\\screenshots")
 
-    def write_data(self, section, option, value):
-        """
-        写入数据
-        :param section: 配置块
-        :param option: 配置项
-        :param value:  配置项对应的值
-        """
-        # 写入内容
-        self.conf.set(section, option, value)
-        # 保存到文件
-        self.conf.write(open(self.filename, "w", encoding=self.encoding))
-
+#下载文件
+downloads_dir = os.path.join(base_dir, "Outputs\\downloads")
 
 # 获取配置文件的绝对路径
-conf_path = os.path.join(dir_config.conf_dir, "conf.ini")
+conf_path = os.path.join(conf_dir, "conf.ini")
 conf = MyConf(conf_path)
-
-
-# if __name__ == '__main__':
-#     print(conf.get_str("env","url"))
-#     print(conf.get_str("env","headers"))

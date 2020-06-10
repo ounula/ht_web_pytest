@@ -3,7 +3,7 @@
 # @time: 2020/5/2 16:31
 from pywinauto.application import Application
 from Common.log import log
-from Common.dir_config import MicroSip_dir
+from Common.config import MicroSip_dir
 from time import sleep
 from pywinauto.keyboard import send_keys
 import pywinauto

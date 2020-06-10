@@ -2,7 +2,7 @@
 # @Time : 2020/4/13 12:15 
 # @Author : ZHH
 import logging
-from Common import dir_config
+from Common import config
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 import time
@@ -248,12 +248,14 @@ class BasePage:
 
     #统计下载文件夹内文件数量
     def count_downloadsFiles(self):
-        return len(os.listdir(dir_config.downloads_dir))
+        count = len(os.listdir(config.downloads_dir))
+        log.info("获取下载目录文件数：{}".format(count))
+        return count
 
     #截图
     def save_screenshot(self, doc=""):
         # 图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
-        filePath = dir_config.screenshot_dir + \
+        filePath = config.screenshot_dir + \
                    "\\{0}_{1}.png".format(doc, time.strftime("%Y-%m-%d-%H-%M-%S"))
         try:
             self.driver.save_screenshot(filePath)

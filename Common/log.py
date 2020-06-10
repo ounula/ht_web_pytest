@@ -4,7 +4,7 @@
 import os
 import logging
 from Common.config import conf
-from Common import dir_config
+from Common import config
 import time
 
 # 读取配置文件中的数据
@@ -21,7 +21,7 @@ class MyLogger(object):
     @staticmethod
     def create_logger():
         curTime = time.strftime('%Y-%m-%d')
-        logname = dir_config.logs_dir + '\\' + 'AutoTestLog-' + curTime + '.log'
+        logname = config.logs_dir + '\\' + 'AutoTestLog-' + curTime + '.log'
         # 一、创建一个名为：python的日志收集器
         my_log = logging.getLogger("auto_test")
         # 二、设置日志收集器的等级
