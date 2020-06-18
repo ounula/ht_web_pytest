@@ -11,6 +11,8 @@ from selenium import webdriver
 import win32con, win32gui
 import os
 from Common.log import log
+
+
 # 封装基本函数 - 执行日志、异常处理、失败截图
 # 所有页面公共的部分
 class BasePage:
@@ -20,13 +22,13 @@ class BasePage:
 
     # 等待元素可见
     def wait_eleVisible(self, locator, wait_times=30, poll_frequency=0.5, doc=""):
-        ''''
+        """'
         :param locator: 元素定位，元祖形式
-        :param times: 最长等待时间
+        :param wait_times: 最长等待时间
         :param poll_frequency: 轮询间隔
         :param doc: 模块名_页面名称_操作名称
         :return:
-        '''
+        """
         try:
             # 开始等待时间
             start = time.time()
@@ -36,22 +38,22 @@ class BasePage:
             # 求差值
             wait_time = round(end - start, 3)
             log.info("等待" + '"' + locator[0] + '"加载成功，用时{}秒'.format(wait_time))
-        except:
+        except Exception as e:
             log.error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
             # 截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 等待元素存在
     def wait_elePresent(self, locator, wait_times=20, poll_frequency=0.5, doc=""):
-        '''
+        """
 
         :param locator: 元素定位，元祖形式
-        :param times: 最长等待时间
+        :param wait_times: 最长等待时间
         :param poll_frequency: 轮询间隔
         :param doc: 模块名_页面名称_操作名称
         :return:
-        '''
+        """
         try:
             # 开始等待时间
             start = time.time()
@@ -61,22 +63,23 @@ class BasePage:
             # 求差值
             wait_time = round(end - start, 3)
             log.info("等待" + '"' + locator[0] + '"加载成功，用时{}秒'.format(wait_time))
-        except:
+        except Exception as e:
             log.error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
             # 截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 等待元素元祖存在
     def wait_elementsPresent(self, locator, wait_times=20, poll_frequency=0.5, doc=""):
-        '''
+        """
 
+        :param wait_times:
         :param locator: 元素定位，元祖形式
-        :param times: 最长等待时间
+        :param wait_times 最长等待时间
         :param poll_frequency: 轮询间隔
         :param doc: 模块名_页面名称_操作名称
         :return:
-        '''
+        """
         try:
             # 开始等待时间
             start = time.time()
@@ -87,14 +90,19 @@ class BasePage:
             # 求差值
             wait_time = round(end - start, 3)
             log.info("等待" + '"' + locator[0] + '"加载成功，用时{}秒'.format(wait_time))
-        except:
+        except Exception as e:
             log.error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
             # 截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 查找元素
     def get_element(self, locator, doc=""):
+        """
+        :param locator: 元素定位
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         try:
             # 开始等待时间
             start = time.time()
@@ -103,16 +111,21 @@ class BasePage:
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            log.info("定位" + '"' + locator[0] + '"成功，用时{}秒'.format(wait_time))
+            log.info("定位" + '"' + locator[0] + '"成功')
             return ele
-        except:
+        except Exception as e:
             log.error("定位" + '"' + locator[0] + '"失败')
             # 截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 查找元素元祖
     def get_elements(self, locator, doc=""):
+        """
+        :param locator: 元素定位
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         try:
             # 开始等待时间
             start = time.time()
@@ -121,13 +134,13 @@ class BasePage:
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            log.info("定位" + '"' + locator[0] + '"成功，用时{}秒'.format(wait_time))
+            log.info("定位" + '"' + locator[0] + '"成功')
             return ele
-        except:
+        except Exception as e:
             log.error("定位" + '"' + locator[0] + '"失败')
             # 截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 点击操作
     def click_element(self, locator, doc=""):
@@ -135,11 +148,11 @@ class BasePage:
         try:
             ele.click()
             log.info("点击：{0}".format(locator[0]))
-        except:
+        except Exception as e:
             log.error("点击" + locator[0] + "失败！")
             #  截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 输入操作
     def input_text(self, locator, text, doc=""):
@@ -147,11 +160,11 @@ class BasePage:
         try:
             ele.send_keys(text)
             log.info('向"' + locator[0] + '"输入内容:{}'.format(text))
-        except:
+        except Exception as e:
             log.error('向"' + locator[0] + '"输入内容:{}失败！'.format(text))
             #  截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 清空输入内容
     def clear_text(self, locator, doc=""):
@@ -159,10 +172,10 @@ class BasePage:
             ele = self.get_element(locator)
             ele.clear()
             log.info('清空"' + locator[0] + '"文本')
-        except:
+        except Exception as e:
             log.error('清空"' + locator[0] + '"文本失败！')
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 获取元素的文本内容
     def get_text(self, locator, doc=""):
@@ -171,22 +184,22 @@ class BasePage:
             text = ele.text
             log.info('获取"' + locator[0] + '"文本，内容为:{}'.format(text))
             return text
-        except:
+        except Exception as e:
             log.error('获取"' + locator[0] + '"文本内容失败！')
             #  截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 获取元素属性
     def get_element_attribute(self, locator, attr, doc=""):
         ele = self.get_element(locator, doc=doc)
         try:
             return ele.get_attribute(attr)
-        except:
+        except Exception as e:
             log.error("获取元素属性失败！定位:{}".format(locator))
             #  截图
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # alert处理
     def alert_action(self, action="accept"):
@@ -211,10 +224,10 @@ class BasePage:
             time.sleep(1)
             win32gui.SendMessage(open_win, win32con.WM_COMMAND, 1, button)
             log.info("上传本地文书：{}".format(file_path))
-        except:
+        except Exception as e:
             log.error("上传文书失败！路径:{}".format(file_path))
             self.save_screenshot(doc)
-            raise
+            raise e
 
     # 滚动条处理（移动到元素顶部和当前窗口顶端对齐）
     def scroll_to_element(self, locator, doc=""):
@@ -230,29 +243,34 @@ class BasePage:
             wait_time = round(end - start, 3)
             log.info("滚动条处理成功，用时{}秒".format(wait_time))
             time.sleep(1)
-        except:
+        except Exception as e:
             log.error("滚动条处理失败，定位：{}".format(locator))
             self.save_screenshot(doc)
-            raise
+            raise e
+
     # 取消read-only属性
-    def cancel_readOnly(self, locator, doc=""):
+    def do_js(self, locator, doc=""):
         ele = self.get_element(locator, doc=doc)
         try:
-            self.driver.execute_script("arguments[0].readOnly;", ele)
+            self.driver.execute_script('arguments[0].removeAttribute("readonly")', ele)
             log.info('去除"' + locator[0] + '"只读属性')
-        except:
+        except Exception as e:
             log.error('去除"' + locator[0] + '"只读属性失败！')
-            raise
+            raise e
 
     # 窗口切换
 
-    #统计下载文件夹内文件数量
+    # 统计下载文件夹内文件数量
     def count_downloadsFiles(self):
-        count = len(os.listdir(config.downloads_dir))
-        log.info("获取下载目录文件数：{}".format(count))
-        return count
+        try:
+            count = len(os.listdir(config.downloads_dir))
+            log.info("获取下载目录文件数：{}".format(count))
+            return count
+        except Exception as e:
+            log.error("获取下载目录文件失败")
+            raise e
 
-    #截图
+    # 截图
     def save_screenshot(self, doc=""):
         # 图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
         filePath = config.screenshot_dir + \
@@ -260,6 +278,6 @@ class BasePage:
         try:
             self.driver.save_screenshot(filePath)
             log.info("截屏成功，图片路径为{}".format(filePath))
-        except:
+        except Exception as e:
             log.error("截图失败")
-            raise
+            raise e

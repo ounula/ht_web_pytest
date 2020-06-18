@@ -10,8 +10,8 @@ from Common.log import log
 import pytest
 
 
-# class TestPtsdPage:
-    # @pytest.mark.usefixtures("get_ptsd_page")
-    # def test_createPtsd_success(self,get_ptsd_page):
-
+class TestPtsdPage:
+    @pytest.mark.usefixtures("get_ptsd_page")
+    def test_createPtsd_success(self,get_ptsd_page):
+        assert 1==1
 

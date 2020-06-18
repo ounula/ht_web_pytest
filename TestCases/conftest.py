@@ -2,6 +2,7 @@
 # author: zhh
 # time: 2020/4/14 7:33
 import pytest
+from Common.log import log
 from selenium import webdriver
 from Common import config
 from PageObjects.index_p import IndexPage
@@ -72,21 +73,30 @@ def login_success():
 
 
 @pytest.fixture(scope="class")
-def get_ptsd_page():
-    global driver
-    # 前置操作
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-    driver.get(CD.web_login_url)
-    LoginPage(driver).login(LD.success_data["用户名"], LD.success_data["密码"])
-    IndexPage(driver).click_ptsd()
+def get_ptsd_page(login_success):
+    # global driver
+    # # 前置操作
+    # driver = webdriver.Chrome()
+    # driver.maximize_window()
+    # driver.get(CD.web_login_url)
+    # print(login_success)
+    # LoginPage(login_success).login(LD.success_data["用户名"], LD.success_data["密码"])
+    IndexPage(login_success).click_ptsd()
     yield driver
     driver.quit()
 
 
 # 声明fixture，会话前/后置操作
 @pytest.fixture(scope="session")
-def session_demo():
-    print("测试会话前置")
+def session_demo(name=''):
+    print("**************{}模块测试用例执行**************".format(name))
     yield
     print("测试会话后置")
+
+
+# 声明fixture，会话前/后置操作
+@pytest.fixture(scope="class")
+def session_demo(name=''):
+    log.info("**************{}模块测试用例执行**************".format(name))
+    yield
+    log.info("**************{}模块测试结束**************".format(name))
