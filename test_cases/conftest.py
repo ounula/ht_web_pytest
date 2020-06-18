@@ -2,14 +2,14 @@
 # author: zhh
 # time: 2020/4/14 7:33
 import pytest
-from Common.log import log
+from common.log import log
 from selenium import webdriver
-from Common import config
-from PageObjects.index_p import IndexPage
-from PageObjects.login_p import LoginPage
-from Common.config import conf
-from TestDatas import common_datas as CD
-from TestDatas import login_datas as LD
+from common import config
+from page_objects.index_p import IndexPage
+from page_objects.login_p import LoginPage
+from common.config import conf
+from test_datas import common_datas as CD
+from test_datas import login_datas as LD
 
 
 # pytest.mark

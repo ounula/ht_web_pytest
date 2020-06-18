@@ -2,13 +2,13 @@
 # @Time : 2020/4/16 17:15 
 # @Author : ZHH
 from selenium import webdriver
-from Common import basepage
-from PageObjects.ptsdList_p import PtsdList
-from PageObjects.createPtsd_p import CreatePtsd
-from TestDatas import common_datas as CD
-from TestDatas import login_datas as LD
-from Common.log import log
-from PageObjects.login_p import LoginPage
+from common import basepage
+from page_objects.ptsdList_p import PtsdList
+from page_objects.createPtsd_p import CreatePtsd
+from test_datas import common_datas as CD
+from test_datas import login_datas as LD
+from common.log import log
+from page_objects.login_p import LoginPage
 import pytest
 import time
 

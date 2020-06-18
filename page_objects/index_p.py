@@ -2,11 +2,11 @@
 # author: zhh
 # time: 2020/4/11 23:59
 from selenium import webdriver
-from PageLocators.index_locator import IndexLocator as loc
+from page_locators.index_locator import IndexLocator as loc
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from Common.basepage import BasePage
+from common.basepage import BasePage
 
 
 class IndexPage(BasePage):

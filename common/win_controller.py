@@ -2,8 +2,8 @@
 # @author: zhh
 # @time: 2020/5/2 16:31
 from pywinauto.application import Application
-from Common.log import log
-from Common.config import MicroSip_dir
+from common.log import log
+from common.config import MicroSip_dir
 from time import sleep
 from pywinauto.keyboard import send_keys
 import pywinauto

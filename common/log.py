@@ -3,8 +3,8 @@
 # @Author : ZHH
 import os
 import logging
-from Common.config import conf
-from Common import config
+from common.config import conf
+from common import config
 import time
 
 # 读取配置文件中的数据

@@ -2,11 +2,11 @@
 # author: zhh
 # time: 2020/4/16 0:39
 from selenium import webdriver
-from PageLocators.createPtsd_locator import CreatePtsdLocator as loc
+from page_locators.createPtsd_locator import CreatePtsdLocator as loc
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from Common.basepage import BasePage
+from common.basepage import BasePage
 
 
 class CreatePtsd(BasePage):

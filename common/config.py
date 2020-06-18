@@ -2,34 +2,34 @@
 # @Time : 2020/4/13 13:55 
 # @Author : ZHH
 import os
-from Common.get_conf import MyConf
+from common.get_conf import MyConf
 
 # 框架项目顶层目录
 base_dir = os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]
 
 # 测试数据
-testdatas_dir = os.path.join(base_dir, "TestDatas")
+testdatas_dir = os.path.join(base_dir, "test_datas")
 
 # 测试用例
-testcase_dir = os.path.join(base_dir, "TestCases")
+testcase_dir = os.path.join(base_dir, "test_cases")
 
 # 配置文件
-conf_dir = os.path.join(base_dir, "Config")
+conf_dir = os.path.join(base_dir, "config")
 
 # 软电话目录
 MicroSip_dir = r'C:\Users\yiii\AppData\Local\MicroSIP\microsip.exe'
 
 # html报告
-htmlreport_dir = os.path.join(base_dir, "Outputs\\reports")
+htmlreport_dir = os.path.join(base_dir, "outputs\\reports")
 
 # 日志文件
-logs_dir = os.path.join(base_dir, "Outputs\\logs")
+logs_dir = os.path.join(base_dir, "outputs\\logs")
 
 # 截图
-screenshot_dir = os.path.join(base_dir, "Outputs\\screenshots")
+screenshot_dir = os.path.join(base_dir, "outputs\\screenshots")
 
 # 下载文件
-downloads_dir = os.path.join(base_dir, "Outputs\\downloads")
+downloads_dir = os.path.join(base_dir, "outputs\\downloads")
 
 # 获取配置文件的绝对路径
 conf_path = os.path.join(conf_dir, "conf.ini")

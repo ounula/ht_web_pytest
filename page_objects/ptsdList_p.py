@@ -1,8 +1,8 @@
 # -*- encoding:utf-8 -*-
 # @Time : 2020/4/16 17:22 
 # @Author : ZHH
-from PageLocators.ptsdList_locator import PtsdList as loc
-from Common.basepage import BasePage
+from page_locators.ptsdList_locator import PtsdList as loc
+from common.basepage import BasePage
 
 
 class PtsdList(BasePage):

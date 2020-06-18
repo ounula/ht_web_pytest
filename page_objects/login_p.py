@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 –*-
 # author: zhh
 # time: 2020/4/12 0:00
-from PageLocators.loginpage_locator import LoginPageLocator as loc
-from Common.basepage import BasePage
-from TestDatas import login_datas as LD
+from page_locators.loginpage_locator import LoginPageLocator as loc
+from common.basepage import BasePage
+from test_datas import login_datas as LD
 
 
 class LoginPage(BasePage):

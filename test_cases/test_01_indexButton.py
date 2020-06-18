@@ -2,10 +2,10 @@
 # @Time : 2020/4/16 17:34 
 # @Author : ZHH
 from selenium import webdriver
-from PageObjects.ptsdList_p import PtsdList
-from PageObjects.index_p import IndexPage
-from Common.log import log
-from PageLocators.index_locator import IndexLocator
+from page_objects.ptsdList_p import PtsdList
+from page_objects.index_p import IndexPage
+from common.log import log
+from page_locators.index_locator import IndexLocator
 import pytest
 
 

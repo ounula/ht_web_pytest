@@ -7,8 +7,8 @@ import win32con
 import win32gui
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from Common import config
-from Common.log import log
+from common import config
+from common.log import log
 
 
 # 封装基本函数 - 执行日志、异常处理、失败截图
