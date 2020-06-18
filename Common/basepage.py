@@ -18,9 +18,9 @@ class BasePage:
         self.driver = driver
         # self.driver = webdriver.Chrome()
 
-    # 等待元素可见
     def wait_eleVisible(self, locator, wait_times=30, poll_frequency=0.5, doc=""):
         """'
+        等待元素可见
         :param locator: 元素定位，元祖形式
         :param wait_times: 最长等待时间
         :param poll_frequency: 轮询间隔
@@ -42,10 +42,9 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 等待元素存在
     def wait_elePresent(self, locator, wait_times=20, poll_frequency=0.5, doc=""):
         """
-
+        等待元素存在
         :param locator: 元素定位，元祖形式
         :param wait_times: 最长等待时间
         :param poll_frequency: 轮询间隔
@@ -67,10 +66,9 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 等待元素元祖存在
     def wait_elementsPresent(self, locator, wait_times=20, poll_frequency=0.5, doc=""):
         """
-
+        等待元素（多个）存在
         :param wait_times:
         :param locator: 元素定位，元祖形式
         :param wait_times 最长等待时间
@@ -94,9 +92,9 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 查找元素
     def get_element(self, locator, doc=""):
         """
+        查找元素
         :param locator: 元素定位
         :param doc: 模块名_页面名称_操作名称
         :return:
@@ -112,9 +110,9 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 查找元素元祖
     def get_elements(self, locator, doc=""):
         """
+        查找元素（多个）
         :param locator: 元素定位
         :param doc: 模块名_页面名称_操作名称
         :return:
@@ -131,6 +129,12 @@ class BasePage:
 
     # 点击操作
     def click_element(self, locator, doc=""):
+        """
+        点击操作
+        :param locator: 元素名称
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         ele = self.get_element(locator, doc=doc)
         try:
             ele.click()
@@ -141,8 +145,14 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 输入操作
     def input_text(self, locator, text, doc=""):
+        """
+        输入操作
+        :param locator: 元素定位
+        :param text: 输入的内容
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         ele = self.get_element(locator, doc=doc)
         try:
             ele.send_keys(text)
@@ -153,8 +163,13 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 清空输入内容
     def clear_text(self, locator, doc=""):
+        """
+        清空输入内容
+        :param locator: 元素定位
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         try:
             ele = self.get_element(locator)
             ele.clear()
@@ -164,8 +179,13 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 获取元素的文本内容
     def get_text(self, locator, doc=""):
+        """
+        获取元素的文本内容
+        :param locator: 元素定位
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         try:
             ele = self.get_element(locator, doc=doc)
             text = ele.text
@@ -177,8 +197,14 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 获取元素属性
     def get_element_attribute(self, locator, attr, doc=""):
+        """
+        获取元素属性
+        :param locator: 元素定位
+        :param attr: 属性名称
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         ele = self.get_element(locator, doc=doc)
         try:
             return ele.get_attribute(attr)
@@ -192,8 +218,13 @@ class BasePage:
     def alert_action(self, action="accept"):
         pass
 
-    # 谷歌上传文书
     def upload_file(self, file_path, doc):
+        """
+        谷歌上传文件
+        :param file_path: 文件地址
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         time.sleep(2)
         try:
             # 一级窗口（打开）
@@ -216,8 +247,13 @@ class BasePage:
             self.save_screenshot(doc)
             raise e
 
-    # 滚动条处理（移动到元素顶部和当前窗口顶端对齐）
     def scroll_to_element(self, locator, doc=""):
+        """
+        滚动条处理（移动到元素顶部和当前窗口顶端对齐）
+        :param locator: 元素定位
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        """
         log.info("开始滚动条处理，拖动位置:{}".format(locator[0]))
         try:
             # 开始等待时间
@@ -245,7 +281,27 @@ class BasePage:
             log.error('去除"' + locator[0] + '"只读属性失败！')
             raise e
 
-    # 窗口切换
+    def switch_to_windows(self, loc, timeout=20, frequency=0.5):
+        """
+        窗口切换
+        :param loc: 元素定位
+        :param timeout: 等待的超时时间
+        :param frequency: 轮询频率
+        :return:
+        """
+        try:
+            cur_handles = self.driver.window_handles  # 获取点击之前的窗口总数
+            start_time = time.time()
+            self.click_element(loc, doc="等待窗口出现")  # 点击按钮后新的窗口出现
+            WebDriverWait(self.driver, timeout, frequency).until(EC.new_window_is_opened(cur_handles))
+            wins = self.driver.window_handles  # 再次获取窗口总数
+            self.driver.switch_to.window(wins[-1])  # 切换到新的页面
+            end_time = time.time()
+            time2 = round(end_time - start_time, 2)
+            log.info("根据元素{}进行窗口切换，等待用时{}秒".format(loc, time2))
+        except Exception as e:
+            log.error("在中根据元素{}进行窗口切换失败！".format(loc))
+            raise e
 
     # 统计下载文件夹内文件数量
     @staticmethod
@@ -258,11 +314,15 @@ class BasePage:
             log.error("获取下载目录文件失败")
             raise e
 
-    # 截图
     def save_screenshot(self, doc=""):
+        """
+        截图
+        :param doc:
+        :return:
+        """
         # 图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
         file_path = config.screenshot_dir + \
-                   "\\{0}_{1}.png".format(doc, time.strftime("%Y-%m-%d-%H-%M-%S"))
+                    "\\{0}_{1}.png".format(doc, time.strftime("%Y-%m-%d-%H-%M-%S"))
         try:
             self.driver.save_screenshot(file_path)
             log.info("截屏成功，图片路径为{}".format(file_path))

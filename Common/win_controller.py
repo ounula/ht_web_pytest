@@ -9,11 +9,11 @@ from pywinauto.keyboard import send_keys
 import pywinauto
 
 
-
 class WinControl:
-    def upload_file(self,file_path,file,doc='',*args):
+    @staticmethod
+    def upload_file(file_path, file, doc='', *args):
         try:
-            #选择文件
+            # 选择文件
             app = pywinauto.Desktop()
             dlg = app["打开"]
             dlg["Toolbar3"].click()
@@ -23,39 +23,42 @@ class WinControl:
             for i in args:
                 send_keys('"{}"'.format(i))
             dlg["打开(&O)"].click()
-            log.info(doc+"上传文件成功")
-        except:
-            log.error(doc+"上传文件失败")
+            log.info(doc + "上传文件成功")
+        except Exception as e:
+            log.error(doc + "上传文件失败")
+            raise e
+
 
 class MicroSIP:
     # 软电话控制，先关闭软电话检查更新
-    def __init__(self,path=None,process=None):
+    def __init__(self, path=None, process=None):
         if path:
             try:
                 self.app = pywinauto.Application(backend="uia").start(path)
                 self.app2 = pywinauto.Application(backend="uia").connect(path=path)
                 log.info("软电话启动成功")
-            except:
+            except Exception as e:
                 log.error("软电话启动失败")
-                raise
+                raise e
         else:
             try:
                 self.app = pywinauto.Application(backend="uia").connect(process=process)
                 log.info("软电话程序连接成功")
-            except:
+            except Exception as e:
                 log.error("软电话程序连接失败")
-                raise
+                raise e
 
-    def open_software(self, softwarePath, doc=""):
+    def open_software(self, software_path, doc=""):
         try:
-            #启动软件
-            app = Application('uia').start(MicroSip_dir)
+            # 启动软件
+            self.app = Application('uia').start(software_path)
             sleep(2)
-            app2 = Application('uia').connect(path=MicroSip_dir)
+            app2 = Application('uia').connect(path=software_path)
             dlg = app2['MicroSIP']
-            log.info(doc+"开启成功")
-        except:
-            log.error(doc+"开启失败")
+            log.info(doc + "开启成功")
+        except Exception as e:
+            log.error(doc + "开启失败")
+            raise e
 
 # app = Application('uia').start(MicroSip_dir)
 # sleep(2)
