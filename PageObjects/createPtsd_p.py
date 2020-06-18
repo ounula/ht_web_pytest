@@ -6,7 +6,6 @@ from PageLocators.createPtsd_locator import CreatePtsdLocator as loc
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from Common.logger import Log
 from Common.basepage import BasePage
 
 

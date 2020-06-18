@@ -1,15 +1,13 @@
 # -*- encoding:utf-8 -*-
 # @Time : 2020/4/13 12:15 
 # @Author : ZHH
-import logging
-from Common import config
+import os
+import time
+import win32con
+import win32gui
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-import time
-from Common.logger import Log
-from selenium import webdriver
-import win32con, win32gui
-import os
+from Common import config
 from Common.log import log
 
 
@@ -105,12 +103,7 @@ class BasePage:
         """
         try:
             # 开始等待时间
-            start = time.time()
             ele = self.driver.find_element(*locator[1])
-            # 结束等待的时间点
-            end = time.time()
-            # 求差值
-            wait_time = round(end - start, 3)
             log.info("定位" + '"' + locator[0] + '"成功')
             return ele
         except Exception as e:
@@ -127,13 +120,7 @@ class BasePage:
         :return:
         """
         try:
-            # 开始等待时间
-            start = time.time()
             ele = self.driver.find_elements(*locator[1])
-            # 结束等待的时间点
-            end = time.time()
-            # 求差值
-            wait_time = round(end - start, 3)
             log.info("定位" + '"' + locator[0] + '"成功')
             return ele
         except Exception as e:
@@ -261,7 +248,8 @@ class BasePage:
     # 窗口切换
 
     # 统计下载文件夹内文件数量
-    def count_downloadsFiles(self):
+    @staticmethod
+    def count_downloadsFiles():
         try:
             count = len(os.listdir(config.downloads_dir))
             log.info("获取下载目录文件数：{}".format(count))
@@ -273,11 +261,11 @@ class BasePage:
     # 截图
     def save_screenshot(self, doc=""):
         # 图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
-        filePath = config.screenshot_dir + \
+        file_path = config.screenshot_dir + \
                    "\\{0}_{1}.png".format(doc, time.strftime("%Y-%m-%d-%H-%M-%S"))
         try:
-            self.driver.save_screenshot(filePath)
-            log.info("截屏成功，图片路径为{}".format(filePath))
+            self.driver.save_screenshot(file_path)
+            log.info("截屏成功，图片路径为{}".format(file_path))
         except Exception as e:
             log.error("截图失败")
             raise e

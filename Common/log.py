@@ -21,7 +21,7 @@ class MyLogger(object):
     @staticmethod
     def create_logger():
         curTime = time.strftime('%Y-%m-%d')
-        logname = config.logs_dir + '\\' + 'AutoTestLog-' + curTime + '.log'
+        log_name = config.logs_dir + '\\' + 'AutoTestLog-' + curTime + '.log'
         # 一、创建一个名为：python的日志收集器
         my_log = logging.getLogger("auto_test")
         # 二、设置日志收集器的等级
@@ -34,7 +34,7 @@ class MyLogger(object):
         # 3、将输出渠道绑定到日志收集器上
         my_log.addHandler(sh)
         # 四、添加输出渠道（输出到文件）
-        fh = logging.FileHandler(logname, encoding="gbk")
+        fh = logging.FileHandler(log_name, encoding="gbk")
         fh.setLevel(f_level)
         my_log.addHandler(fh)
         # 五、设置日志输出的格式
