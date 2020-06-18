@@ -29,7 +29,7 @@ log_url = conf.get_str('env','url')
 def access_web():
     global driver
     # 前置操作
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(executable_path=config.driver_path)
     driver.maximize_window()
     driver.get(url=log_url)
     lg = LoginPage(driver)
@@ -65,7 +65,7 @@ def login_success():
         'safebrowsing.enabled': True,
     }
     options.add_experimental_option('prefs', prefs)
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(options=options,executable_path=config.driver_path)
     driver.maximize_window()
     driver.get(url=log_url)
     LoginPage(driver).login(LD.success_data["用户名"], LD.success_data["密码"])

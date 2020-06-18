@@ -2,9 +2,9 @@
 # author: zhh
 # time: 2020/4/12 0:32
 import pytest
-from PageObjects.index_p import IndexPage
-from TestDatas import login_datas as LD
-from Common.log import log
+from page_objects.index_p import IndexPage
+from test_datas import login_datas as LD
+from common.log import log
 
 @pytest.mark.usefixtures("access_web")
 @pytest.mark.usefixtures("refresh_page")

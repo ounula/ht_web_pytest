@@ -7,6 +7,9 @@ from common.get_conf import MyConf
 # 框架项目顶层目录
 base_dir = os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]
 
+# 驱动存放路径
+driver_path = os.path.join(base_dir, "driver\\chromedriver")
+
 # 测试数据
 testdatas_dir = os.path.join(base_dir, "test_datas")
 
