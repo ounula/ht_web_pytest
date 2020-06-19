@@ -2,6 +2,7 @@
 # @Time : 2020/4/13 12:15 
 # @Author : ZHH
 import os
+from selenium import webdriver
 import time
 import win32con
 import win32gui
@@ -16,7 +17,34 @@ from common.log import log
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
-        # self.driver = webdriver.Chrome()
+
+    def open_browser(self):
+        set_headless = config.conf.get_str("env", "head_less")
+        set_browser = config.conf.get_str("env", "browser")
+        project_url = config.conf.get_str("env", "url")
+        try:
+            if set_browser == "Chrome":
+                options = webdriver.ChromeOptions()
+                prefs = {
+                    "download.prompt_for_download": False,
+                    'download.default_directory': config.downloads_dir,  # 下载目录
+                    'profile.default_content_settings.popups': 0,  # 设置为0，禁止弹出窗口
+                    'safebrowsing.enabled': True,
+                }
+                options.add_experimental_option('prefs', prefs)
+                if set_headless == "True":
+                    options.add_argument('--headless')
+                    options.add_argument('--disable-gpu')
+                self.driver = webdriver.Chrome(options=options, executable_path=config.driver_path)
+                self.driver.maximize_window()
+                self.driver.get(url=project_url)
+                log.info(f"打开{set_browser}浏览器成功")
+                return self.driver
+            else:
+                raise Exception("暂不支持其他浏览器")
+        except Exception as e:
+            log.error("拉起浏览器失败")
+            raise e
 
     def wait_eleVisible(self, locator, wait_times=30, poll_frequency=0.5, doc=""):
         """'
@@ -209,7 +237,7 @@ class BasePage:
         try:
             return ele.get_attribute(attr)
         except Exception as e:
-            log.error("获取元素属性失败！定位:{}".format(locator))
+            log.error("获取元素属性失败！定位:{}".format(locator[0]))
             #  截图
             self.save_screenshot(doc)
             raise e
@@ -267,7 +295,7 @@ class BasePage:
             log.info("滚动条处理成功，用时{}秒".format(wait_time))
             time.sleep(1)
         except Exception as e:
-            log.error("滚动条处理失败，定位：{}".format(locator))
+            log.error("滚动条处理失败，定位：{}".format(locator[0]))
             self.save_screenshot(doc)
             raise e
 
@@ -281,10 +309,10 @@ class BasePage:
             log.error('去除"' + locator[0] + '"只读属性失败！')
             raise e
 
-    def switch_to_windows(self, loc, timeout=20, frequency=0.5):
+    def switch_to_windows(self, locator, timeout=20, frequency=0.5):
         """
         窗口切换
-        :param loc: 元素定位
+        :param locator: 元素定位
         :param timeout: 等待的超时时间
         :param frequency: 轮询频率
         :return:
@@ -292,15 +320,16 @@ class BasePage:
         try:
             cur_handles = self.driver.window_handles  # 获取点击之前的窗口总数
             start_time = time.time()
-            self.click_element(loc, doc="等待窗口出现")  # 点击按钮后新的窗口出现
+            self.click_element(locator, doc=f"点击{locator[0]}等待窗口出现")  # 点击按钮后新的窗口出现
+            log.info(f"点击{locator[0]}等待窗口出现")
             WebDriverWait(self.driver, timeout, frequency).until(EC.new_window_is_opened(cur_handles))
             wins = self.driver.window_handles  # 再次获取窗口总数
             self.driver.switch_to.window(wins[-1])  # 切换到新的页面
             end_time = time.time()
             time2 = round(end_time - start_time, 2)
-            log.info("根据元素{}进行窗口切换，等待用时{}秒".format(loc, time2))
+            log.info("根据元素{}进行窗口切换，等待用时{}秒".format(locator[0], time2))
         except Exception as e:
-            log.error("在中根据元素{}进行窗口切换失败！".format(loc))
+            log.error("根据元素{}进行窗口切换失败！".format(locator[0]))
             raise e
 
     # 统计下载文件夹内文件数量
@@ -329,3 +358,7 @@ class BasePage:
         except Exception as e:
             log.error("截图失败")
             raise e
+
+
+if __name__ == '__main__':
+    BasePage(driver=1).open_browser()
