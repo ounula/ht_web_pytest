@@ -1,6 +1,6 @@
-# -*- encoding:utf-8 -*-
-# @Time : 2020/4/16 17:34 
-# @Author : ZHH
+# -*- coding: UTF-8 –*-
+# author: zhh
+# time: 2020/7/2 14:19
 from selenium import webdriver
 from page_objects.ptsdList_p import PtsdList
 from page_objects.index_p import IndexPage

@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 –*-
 # author: zhh
-# time: 2020/4/12 0:00
+# time: 2020/7/2 14:19
 from page_locators.loginpage_locator import LoginPageLocator as loc
 from common.basepage import BasePage
 from test_datas import login_datas as LD

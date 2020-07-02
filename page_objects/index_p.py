@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 –*-
 # author: zhh
-# time: 2020/4/11 23:59
+# time: 2020/7/2 14:19
 from selenium import webdriver
 from page_locators.index_locator import IndexLocator as loc
 from selenium.webdriver.support.wait import WebDriverWait
@@ -18,6 +18,11 @@ class IndexPage(BasePage):
     def click_logout(self):
         doc = "点击注销按钮"
         self.click_element(loc.logOut, doc=doc)
+
+    def click_ajgl(self):
+        doc ="点击送达管理菜单"
+        self.wait_eleVisible(loc.ptsd)
+        self.click_element(loc.ptsd, doc=doc)
 
     def click_ptsd(self):
         doc = "点击菜单栏普通送达"

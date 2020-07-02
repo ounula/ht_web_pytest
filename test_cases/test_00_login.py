@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 –*-
 # author: zhh
-# time: 2020/4/12 0:32
+# time: 2020/7/2 14:19
 import pytest
 from page_objects.index_p import IndexPage
 from test_datas import login_datas as LD

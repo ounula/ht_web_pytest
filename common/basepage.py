@@ -1,6 +1,6 @@
-# -*- encoding:utf-8 -*-
-# @Time : 2020/4/13 12:15 
-# @Author : ZHH
+# -*- coding: UTF-8 –*-
+# author: zhh
+# time: 2020/7/2 14:19
 import os
 from selenium import webdriver
 import time
@@ -14,11 +14,9 @@ from common.log import log
 
 # 封装基本函数 - 执行日志、异常处理、失败截图
 # 所有页面公共的部分
-class BasePage:
-    def __init__(self, driver):
-        self.driver = driver
-
-    def open_browser(self):
+class BaseHandle:
+    @staticmethod
+    def open_browser():
         set_headless = config.conf.get_str("env", "head_less")
         set_browser = config.conf.get_str("env", "browser")
         project_url = config.conf.get_str("env", "url")
@@ -35,16 +33,53 @@ class BasePage:
                 if set_headless == "True":
                     options.add_argument('--headless')
                     options.add_argument('--disable-gpu')
-                self.driver = webdriver.Chrome(options=options, executable_path=config.driver_path)
-                self.driver.maximize_window()
-                self.driver.get(url=project_url)
-                log.info(f"打开{set_browser}浏览器成功")
-                return self.driver
+                driver = webdriver.Chrome(options=options, executable_path=config.driver_path)
+                driver.maximize_window()
+                driver.get(url=project_url)
+                return driver
             else:
                 raise Exception("暂不支持其他浏览器")
         except Exception as e:
             log.error("拉起浏览器失败")
             raise e
+
+
+class BasePage:
+    def __init__(self, driver):
+        self.driver = driver
+        # self.driver = webdriver.Chrome()
+
+    @staticmethod
+    def open_browser(url=None):
+        set_headless = config.conf.get_str("env", "head_less")
+        set_browser = config.conf.get_str("env", "browser")
+        project_url = config.conf.get_str("env", "url")
+        url = project_url if url is None else url
+        try:
+            if set_browser == "Chrome":
+                options = webdriver.ChromeOptions()
+                prefs = {
+                    "download.prompt_for_download": False,
+                    'download.default_directory': config.downloads_dir,  # 下载目录
+                    'profile.default_content_settings.popups': 0,  # 设置为0，禁止弹出窗口
+                    'safebrowsing.enabled': True,
+                }
+                options.add_experimental_option('prefs', prefs)
+                if set_headless == "True":
+                    options.add_argument('--headless')
+                    options.add_argument('--disable-gpu')
+                driver = webdriver.Chrome(options=options, executable_path=config.driver_path)
+                driver.maximize_window()
+                driver.get(url=url)
+                return driver
+            else:
+                raise Exception("暂不支持谷歌以外浏览器")
+        except Exception as e:
+            log.error("拉起浏览器失败")
+            raise e
+
+    def close_browser(self):
+        self.driver.quit()
 
     def wait_eleVisible(self, locator, wait_times=30, poll_frequency=0.5, doc=""):
         """'

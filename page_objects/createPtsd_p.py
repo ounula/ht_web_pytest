@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 –*-
 # author: zhh
-# time: 2020/4/16 0:39
+# time: 2020/7/2 14:19
 from selenium import webdriver
 from page_locators.createPtsd_locator import CreatePtsdLocator as loc
 from selenium.webdriver.support.wait import WebDriverWait

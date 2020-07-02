@@ -1,10 +1,11 @@
 # -*- coding: UTF-8 –*-
 # author: zhh
-# time: 2020/4/14 7:33
+# time: 2020/7/2 14:19
 import pytest
 from common.log import log
 from selenium import webdriver
 from common import config
+from common.basepage import BasePage
 from page_objects.index_p import IndexPage
 from page_objects.login_p import LoginPage
 from common.config import conf
@@ -20,7 +21,8 @@ def pytest_configure(config):
 
 
 driver = None
-log_url = conf.get_str('env','url')
+log_url = conf.get_str('env', 'url')
+
 
 # driver=webdriver.Chrome()
 # 声明fixture，测试类前/后置操作
@@ -29,9 +31,7 @@ log_url = conf.get_str('env','url')
 def access_web():
     global driver
     # 前置操作
-    driver = webdriver.Chrome(executable_path=config.driver_path)
-    driver.maximize_window()
-    driver.get(url=log_url)
+    driver = BasePage.open_browser()
     lg = LoginPage(driver)
     yield driver, lg  # 分割线；返回值
     # 后置操作
@@ -56,31 +56,14 @@ def back_page():
 def login_success():
     global driver
     # 前置操作
-    options = webdriver.ChromeOptions()
-    print(config.downloads_dir)
-    prefs = {
-        "download.prompt_for_download": False,
-        'download.default_directory': config.downloads_dir,  # 下载目录
-        'profile.default_content_settings.popups': 0,  # 设置为0，禁止弹出窗口
-        'safebrowsing.enabled': True,
-    }
-    options.add_experimental_option('prefs', prefs)
-    driver = webdriver.Chrome(options=options,executable_path=config.driver_path)
-    driver.maximize_window()
-    driver.get(url=log_url)
+    driver = BasePage.open_browser()
     LoginPage(driver).login(LD.success_data["用户名"], LD.success_data["密码"])
     yield driver
 
 
 @pytest.fixture(scope="class")
 def get_ptsd_page(login_success):
-    # global driver
     # # 前置操作
-    # driver = webdriver.Chrome()
-    # driver.maximize_window()
-    # driver.get(CD.web_login_url)
-    # print(login_success)
-    # LoginPage(login_success).login(LD.success_data["用户名"], LD.success_data["密码"])
     IndexPage(login_success).click_ptsd()
     yield driver
     driver.quit()

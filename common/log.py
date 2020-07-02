@@ -1,6 +1,6 @@
-# -*- encoding:utf-8 -*-
-# @Time : 2020/5/13 17:28
-# @Author : ZHH
+# -*- coding: UTF-8 –*-
+# author: zhh
+# time: 2020/7/2 14:19
 import os
 import logging
 from common.config import conf

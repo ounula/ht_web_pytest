@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 –*-
-# @author: zhh
-# @time: 2020/5/2 16:31
+# author: zhh
+# time: 2020/7/2 14:19
 from pywinauto.application import Application
 from common.log import log
 from common.config import MicroSip_dir
